@@ -1,30 +1,22 @@
-use pirate_party::pirate::PirateParty;
-
 // Implement a pirate party where 8 pirates talk over each other
-// To avoid the implicit locking of stdout that println! does, use writeln! instead
-// Each pirate should utter 5 pirate terms
+// Each pirate can utter about 5 pirate terms
 
-// Create a new Party like so:
-// let party = PirateParty:new(number_of_pirates);
+// A PirateParty is created with PirateParty::new(n_partygoers)
 
-// Get a pirate:
-// party.get_pirate(pirate_number);
+// Get a pirate from a party with party.get_pirate(pirate_number)
 
-// make a pirate say something:
-// pirate.utter_random_phrase();
+// A thread scope is created like this :
+// thread::scope(|scope|{...});
+
+// A thread is created on a scope like this:
+// scope.spawn(|| {})
+
+use pirates::PirateParty;
+use std::thread;
 
 fn main() {
-    let party = PirateParty::new(8);
-
-    std::thread::scope(|scope| {
-        for t in 0..8 {
-            let pirate = party.get_pirate(t);
-            scope.spawn(move || {
-                for _ in 0..5 {
-                    pirate.utter_random_phrase();
-                }
-                //pb.finish_with_message("Done");
-            });
-        }
-    });
+    // 1. Create a new PirateParty with 8 members
+    // 2. Create a thread scope
+    // 3. Inside this scope create 8 threads with their own pirate
+    // 4. use a for loop within these threads to make its' associated pirate utter about 5 random phrases
 }

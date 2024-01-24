@@ -1,4 +1,4 @@
-use std::{fmt::Display, thread, time::Duration};
+use std::{fmt::Display, time::Duration};
 
 use rand::Rng;
 
@@ -9,17 +9,23 @@ pub enum PirateChore {
     Pillage,
     Scuttle,
     WalkThePlank,
+    DividingTheBooty,
+    SingAShanty,
+    DrinkRum,
 }
 
 impl From<&PirateChore> for Duration {
     fn from(work: &PirateChore) -> Self {
         match work {
-            PirateChore::Keelhaul => Duration::from_millis(1000),
-            PirateChore::Loot => Duration::from_millis(3000),
-            PirateChore::Plunder => Duration::from_millis(4000),
-            PirateChore::Pillage => Duration::from_millis(6000),
-            PirateChore::Scuttle => Duration::from_millis(30),
-            PirateChore::WalkThePlank => Duration::from_millis(300),
+            PirateChore::Keelhaul => Duration::from_millis(2000),
+            PirateChore::Loot => Duration::from_millis(2200),
+            PirateChore::Plunder => Duration::from_millis(1500),
+            PirateChore::Pillage => Duration::from_millis(3000),
+            PirateChore::Scuttle => Duration::from_millis(300),
+            PirateChore::WalkThePlank => Duration::from_millis(800),
+            PirateChore::DividingTheBooty => Duration::from_millis(1400),
+            PirateChore::SingAShanty => Duration::from_millis(600),
+            PirateChore::DrinkRum => Duration::from_millis(900),
         }
     }
 }
@@ -32,6 +38,9 @@ impl Display for PirateChore {
             PirateChore::Pillage => write!(f, "Pillaging"),
             PirateChore::Scuttle => write!(f, "Scuttling"),
             PirateChore::WalkThePlank => write!(f, "Walking the plank"),
+            PirateChore::DividingTheBooty => write!(f, "Dividing the booty"),
+            PirateChore::SingAShanty => write!(f, "Singing a shanty"),
+            PirateChore::DrinkRum => write!(f, "Drinking Rum"),
         }
     }
 }
@@ -44,31 +53,29 @@ impl PirateChore {
             3 => PirateChore::Pillage,
             4 => PirateChore::Scuttle,
             5 => PirateChore::WalkThePlank,
+            6 => PirateChore::DividingTheBooty,
+            7 => PirateChore::SingAShanty,
+            8 => PirateChore::DrinkRum,
             _ => panic!("Unknown chore {}", number),
         }
     }
 
     pub fn new_random_roster() -> Vec<Self> {
-        const NUMBER_OF_WORK_ITEMS: u32 = 32;
+        const NUMBER_OF_WORK_ITEMS: u32 = 64;
         let mut rng = rand::thread_rng();
         (0..NUMBER_OF_WORK_ITEMS)
             .collect::<std::vec::Vec<u32>>()
             .iter()
-            .map(|_| PirateChore::new_from_number(rng.gen_range(0..6)))
+            .map(|_| PirateChore::new_from_number(rng.gen_range(0..9)))
             .collect()
     }
     pub fn new_roster() -> Vec<Self> {
-        const NUMBER_OF_WORK_ITEMS: u32 = 32;
+        const NUMBER_OF_WORK_ITEMS: u32 = 64;
 
         (0..NUMBER_OF_WORK_ITEMS)
             .collect::<std::vec::Vec<u32>>()
             .iter()
-            .map(|i| PirateChore::new_from_number(i % 6))
+            .map(|i| PirateChore::new_from_number(i % 9))
             .collect()
-    }
-
-    pub fn do_the_work(&self, i: u32) {
-        println!("Thread {i}: {}", self);
-        thread::sleep(self.into());
     }
 }

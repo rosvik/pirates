@@ -79,15 +79,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "830b246a0e5f20af87141b25c173cd1b609bd7779a4617d6ec582abaf90870f3"
 
 [[package]]
-name = "pirate_party"
-version = "0.1.0"
-dependencies = [
- "indicatif",
- "pirates",
- "rand",
-]
-
-[[package]]
 name = "pirates"
 version = "0.1.0"
 dependencies = [
@@ -135,6 +126,13 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ec0be4795e2f6a28069bec0b5ff3e2ac9bafc99e6a9a7dc3547996c5c816922c"
 dependencies = [
  "getrandom",
+]
+
+[[package]]
+name = "role_call"
+version = "0.1.0"
+dependencies = [
+ "pirates",
 ]
 
 [[package]]
