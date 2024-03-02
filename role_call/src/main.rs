@@ -9,4 +9,10 @@ use pirates::Pirate;
 // Join thread: thread_handle.join()
 
 // Get a random pirate name: Pirate::get_random_name()
+
+// How can we avoid the compiler error
+// "closure may outlive the current function, but it borrows `i`,
+// which is owned by the current function" ?
+// How does this work?
+
 fn main() {}
