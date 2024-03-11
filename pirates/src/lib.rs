@@ -7,7 +7,7 @@ use indicatif::{MultiProgress, ProgressBar, ProgressStyle};
 use pirate_chores::PirateChore;
 use rand::Rng;
 
-pub const PIRATE_TERMS: [&str; 14] = [
+pub const PIRATE_TERMS: [&str; 15] = [
     "Avast Ye",
     "Yarr",
     "I am a free prince",
@@ -22,6 +22,7 @@ pub const PIRATE_TERMS: [&str; 14] = [
     "blow the man down",
     "Damn my blood",
     "Let's jump on board, and cut them to pieces",
+    "I'm Guybrush Threepwood, and I'm a mighty pirate.",
 ];
 
 pub const PIRATE_NAMES: [&str; 8] = [
@@ -35,8 +36,14 @@ pub const PIRATE_NAMES: [&str; 8] = [
     "Mary Read",
 ];
 
+#[derive(Clone)]
 pub struct Pirate {
     progress: ProgressBar,
+}
+impl Drop for Pirate {
+    fn drop(&mut self) {
+        self.finish();
+    }
 }
 impl Pirate {
     pub fn new(progress: ProgressBar) -> Self {
@@ -65,6 +72,7 @@ impl Pirate {
 }
 pub struct PirateParty {
     pirates: Vec<Pirate>,
+    mp: MultiProgress,
 }
 
 impl PirateParty {
@@ -77,7 +85,7 @@ impl PirateParty {
             .iter()
             .map(|_| Self::create_pirate(&mp, &style))
             .collect();
-        Self { pirates }
+        Self { pirates, mp }
     }
     pub fn get_pirate(&self, i: usize) -> &Pirate {
         &self.pirates[i]
@@ -87,5 +95,9 @@ impl PirateParty {
         pb.set_style(style.clone());
         pb.set_prefix("\u{1F480}");
         Pirate::new(pb)
+    }
+
+    pub fn println(&self, msg: &str) {
+        self.mp.println(msg).unwrap();
     }
 }

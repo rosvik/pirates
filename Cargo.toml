@@ -1,0 +1,3 @@
+[workspace]
+resolver = "2"
+members = ["pirates", "role_call", "pirate_party", "pirate_chores", "captains"]

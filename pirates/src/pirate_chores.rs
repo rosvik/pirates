@@ -2,6 +2,7 @@ use std::{fmt::Display, time::Duration};
 
 use rand::Rng;
 
+#[derive(PartialEq)]
 pub enum PirateChore {
     Keelhaul,
     Loot,
@@ -12,6 +13,7 @@ pub enum PirateChore {
     DividingTheBooty,
     SingAShanty,
     DrinkRum,
+    Cleanup,
 }
 
 impl From<&PirateChore> for Duration {
@@ -26,6 +28,7 @@ impl From<&PirateChore> for Duration {
             PirateChore::DividingTheBooty => Duration::from_millis(1400),
             PirateChore::SingAShanty => Duration::from_millis(600),
             PirateChore::DrinkRum => Duration::from_millis(900),
+            PirateChore::Cleanup => Duration::from_millis(100),
         }
     }
 }
@@ -41,6 +44,7 @@ impl Display for PirateChore {
             PirateChore::DividingTheBooty => write!(f, "Dividing the booty"),
             PirateChore::SingAShanty => write!(f, "Singing a shanty"),
             PirateChore::DrinkRum => write!(f, "Drinking Rum"),
+            PirateChore::Cleanup => write!(f, "Cleaning up"),
         }
     }
 }
