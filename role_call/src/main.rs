@@ -1,4 +1,4 @@
-// Create 8 threads. In each thread print a random pirate name and its number
+// Create 1 thread. In each thread print a random pirate name and its number
 // The main thread should print "I am also a pirate"
 use std::thread;
 
